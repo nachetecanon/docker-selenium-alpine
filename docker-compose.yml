@@ -1,0 +1,35 @@
+version: '2'
+services:
+  # image with alpine and jdk 1.8
+  basejdk:
+    build:
+      context: ./0_imageJdk
+    image: selenium-alpine/base
+  # image with selenium hub
+  selenium-hub:
+    build:
+      context: ./1_imageHub
+    image: selenium-alpine/hub
+    depends_on:
+      - basejdk
+    ports:
+      - "4444:4444"
+  # image with node base
+  node-base:
+    build:
+      context: ./2_nodebase
+    image: selenium-alpine/nodebase
+    depends_on:
+      - basejdk
+  # image with selenium firefox node
+  selenium-firefox:
+    build:
+      context: ./3_node-firefox
+    image: selenium-alpine/ff-node
+    depends_on:
+      - basejdk
+      - node-base
+    ports:
+      - "4445:4444"
+    links:
+      - selenium-hub:hub

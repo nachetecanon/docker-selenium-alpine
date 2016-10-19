@@ -1,0 +1,16 @@
+version: '2'
+services:
+  # image with selenium hub
+  selenium-hub:
+    image: selenium-alpine/hub
+    ports:
+      - "4444:4444"
+  # image with selenium firefox node
+  selenium-firefox:
+    image: selenium-alpine/ff-node
+    depends_on:
+      - selenium-hub
+    ports:
+      - "4445:4444"
+    links:
+      - selenium-hub:hub
