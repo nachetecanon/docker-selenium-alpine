@@ -33,3 +33,15 @@ services:
       - "4445:4444"
     links:
       - selenium-hub:hub
+  # image with selenium chrome node
+  selenium-chrome:
+    build:
+      context: ./4_node-chrome
+    image: selenium-alpine/cr-node
+    depends_on:
+      - basejdk
+      - node-base
+    ports:
+      - "4446:4444"
+    links:
+      - selenium-hub:hub

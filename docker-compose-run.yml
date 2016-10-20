@@ -14,3 +14,12 @@ services:
       - "4445:4444"
     links:
       - selenium-hub:hub
+   # image with selenium chrome node
+  selenium-chrome:
+    image: selenium-alpine/cr-node
+    depends_on:
+      - selenium-hub
+    ports:
+      - "4446:4444"
+    links:
+      - selenium-hub:hub

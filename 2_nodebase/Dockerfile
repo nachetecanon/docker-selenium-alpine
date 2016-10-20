@@ -14,6 +14,7 @@ RUN apk --no-cache add \
     dbus-uuidgen --ensure=/etc/machine-id
 
 COPY xvfb.sh ${SELENIUM_PATH}
+ENV DISPLAY ':0.0'
 
 RUN chmod +x ${SELENIUM_PATH}/xvfb.sh
 

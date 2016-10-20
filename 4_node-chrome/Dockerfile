@@ -3,16 +3,20 @@ FROM selenium-alpine/nodebase
 MAINTAINER Nacho Cañón <icanon@paradigmatecnologico.com>
 
 RUN apk --no-cache add \
-        firefox-esr
+        chromium
         
-ADD supervisor/selenium-firefox-node.sh /root/
+ADD supervisor/selenium-chrome-node.sh /root/
 ADD supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-ADD geckodriver /usr/bin/geckodriver
-ADD config.json /opt/config.json
 
-RUN chmod +x /usr/bin/geckodriver && \
-    chmod +x /root/selenium-firefox-node.sh
+ADD config.json /opt/config.json
+ENV CHROME_DRIVER_VERSION=2.24
+
+RUN cd /usr/bin &&  curl --progress-bar -k https://chromedriver.storage.googleapis.com/${CHROME_DRIVER_VERSION}/chromedriver_linux64.zip -o /usr/bin/chrome.zip \
+    && unzip /usr/bin/chrome.zip
+
+RUN chmod +x /usr/bin/chromedriver && \
+    chmod +x /root/selenium-chrome-node.sh
 
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
