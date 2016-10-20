@@ -8,12 +8,9 @@
       "version": "CHROME_VERSION",
       "platform": "LINUX",
       "maxInstances": 1,
-      "acceptSslCerts": "true",
-      "trustAllSSLCertificates": true,
       "seleniumProtocol": "WebDriver"
     }
   ],
-  "trustAllSSLCertificates": true,
   "cleanUpCycle": 2000,
   "registerCycle": 5000,
   "timeout": 30000,

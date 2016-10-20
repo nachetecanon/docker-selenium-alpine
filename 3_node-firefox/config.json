@@ -8,12 +8,10 @@
       "version": "FIREFOX_VERSION",
       "platform": "LINUX",
       "maxInstances": 1,
-      "acceptSslCerts": "true",
-      "trustAllSSLCertificates": true,
       "seleniumProtocol": "WebDriver"
     }
   ],
-  "trustAllSSLCertificates": true,
+  "webdriver_accept_untrusted_certs": true,
   "cleanUpCycle": 2000,
   "registerCycle": 5000,
   "timeout": 30000,
