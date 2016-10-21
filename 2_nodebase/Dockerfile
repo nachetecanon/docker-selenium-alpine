@@ -1,6 +1,6 @@
 FROM selenium-alpine/base
 
-MAINTAINER Nacho Cañón <icanon@paradigmatecnologico.com>
+MAINTAINER Nacho Cañón <nachete.canon@gmail.com>
 
 ENV SELENIUM_HUB_URL http://hub:4444/grid/register
 

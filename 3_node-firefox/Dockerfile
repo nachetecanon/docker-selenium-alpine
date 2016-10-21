@@ -1,6 +1,6 @@
 FROM selenium-alpine/nodebase
 
-MAINTAINER Nacho Cañón <icanon@paradigmatecnologico.com>
+MAINTAINER Nacho Cañón <nachete.canon@gmail.com>
 
 RUN apk --no-cache add \
         firefox-esr

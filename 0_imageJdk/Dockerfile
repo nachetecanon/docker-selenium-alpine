@@ -1,10 +1,11 @@
 FROM alpine
 
-MAINTAINER Nacho Cañón <icanon@paradigmatecnologico.com>
+MAINTAINER Nacho Cañón <nachete.canon@gmail.com>
 
 # Install cURL, tar, etc
 RUN apk --update add bash curl supervisor
-# Here we install GNU libc (aka glibc) and set C.UTF-8 locale as default.
+
+# set C.UTF-8 locale as default.
 
 ENV LANG=C.UTF-8 \
     LC_MONETARY=C.UTF-8 \
@@ -15,6 +16,9 @@ ENV LANG=C.UTF-8 \
     LC_MEASUREMENT=C.UTF-8 \
     LC_IDENTIFICATION=C.UTF-8
 
+#==============================
+# download openjdk
+#==============================
 # add a simple script that can auto-detect the appropriate JAVA_HOME value
 # based on whether the JDK or only the JRE is installed
 RUN { \
@@ -37,7 +41,13 @@ RUN set -x \
 
 ENV PATH ${PATH}:${JAVA_HOME}/bin
 
-ADD selenium/selenium-server-standalone.jar /opt/
+#==============================
+# download Selenium server
+#==============================
+ENV SELENIUM_STANDALONE_VERSION 3.0.1
+ENV SELENIUM_STANDALONE_BASE 3.0
+
+ADD https://selenium-release.storage.googleapis.com/${SELENIUM_STANDALONE_BASE}/selenium-server-standalone-${SELENIUM_STANDALONE_VERSION}.jar /opt/
 
 ENV SELENIUM_PATH /opt
 

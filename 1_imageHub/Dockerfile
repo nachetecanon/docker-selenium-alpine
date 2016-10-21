@@ -1,6 +1,6 @@
 FROM selenium-alpine/base
 
-MAINTAINER Nacho Cañón <icanon@paradigmatecnologico.com>
+MAINTAINER Nacho Cañón <nachete.canon@gmail.com>
 
 RUN mkdir -p /var/log/supervisor
 
