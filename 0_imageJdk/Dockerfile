@@ -51,6 +51,9 @@ ADD https://selenium-release.storage.googleapis.com/${SELENIUM_STANDALONE_BASE}/
 
 ENV SELENIUM_PATH /opt
 
+RUN mv /opt/selenium-server-standalone-${SELENIUM_STANDALONE_VERSION}.jar /opt/selenium-server-standalone.jar \
+    && chmod 755 /opt/selenium-server-standalone.jar
+
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && export SELELENIUM_PATH=/opt
 
