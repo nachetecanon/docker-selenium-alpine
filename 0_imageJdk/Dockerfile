@@ -3,7 +3,7 @@ FROM alpine
 MAINTAINER Nacho Cañón <nachete.canon@gmail.com>
 
 # Install cURL, tar, etc
-RUN apk --update add bash curl supervisor
+RUN apk --update add bash curl supervisor sudo
 
 # set C.UTF-8 locale as default.
 
@@ -41,18 +41,31 @@ RUN set -x \
 
 ENV PATH ${PATH}:${JAVA_HOME}/bin
 
+#========================================
+# Add normal user with passwordless sudo
+#========================================
+RUN mkdir -p /opt/selenium /home/developer \
+   && addgroup sudo \
+   && adduser developer -s /bin/bash -G sudo -D -h /home/developer \
+   && addgroup developer \
+   && echo 'developer:secret' | chpasswd \
+   && echo 'ALL ALL = (ALL) NOPASSWD: ALL' >> /etc/sudoers
+
+
 #==============================
 # download Selenium server
 #==============================
 ENV SELENIUM_STANDALONE_VERSION 3.0.1
 ENV SELENIUM_STANDALONE_BASE 3.0
 
-ADD https://selenium-release.storage.googleapis.com/${SELENIUM_STANDALONE_BASE}/selenium-server-standalone-${SELENIUM_STANDALONE_VERSION}.jar /opt/
+ADD https://selenium-release.storage.googleapis.com/${SELENIUM_STANDALONE_BASE}/selenium-server-standalone-${SELENIUM_STANDALONE_VERSION}.jar /opt/selenium
 
-ENV SELENIUM_PATH /opt
+ENV SELENIUM_PATH /opt/selenium
 
-RUN mv /opt/selenium-server-standalone-${SELENIUM_STANDALONE_VERSION}.jar /opt/selenium-server-standalone.jar \
-    && chmod 755 /opt/selenium-server-standalone.jar
+RUN mv ${SELENIUM_PATH}/selenium-server-standalone-${SELENIUM_STANDALONE_VERSION}.jar ${SELENIUM_PATH}/selenium-server-standalone.jar \
+    && chmod 755 /${SELENIUM_PATH}/selenium-server-standalone.jar
+
+RUN chown -R developer:developer ${SELENIUM_PATH}
 
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && export SELELENIUM_PATH=/opt

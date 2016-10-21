@@ -5,17 +5,22 @@ MAINTAINER Nacho Cañón <nachete.canon@gmail.com>
 RUN apk --no-cache add \
         chromium chromium-chromedriver
         
-ADD supervisor/selenium-chrome-node.sh /root/
+ADD supervisor/selenium-chrome-node.sh ${SELENIUM_PATH}/
 ADD supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-ADD config.json /opt/config.json
+ADD config.json ${SELENIUM_PATH}/config.json
 
 
-RUN chmod +x /root/selenium-chrome-node.sh
+RUN chmod +x ${SELENIUM_PATH}/selenium-chrome-node.sh
 
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 EXPOSE 4444
+
+# Following line fixes
+# https://github.com/SeleniumHQ/docker-selenium/issues/87
+ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
+
 
 CMD ["/usr/bin/supervisord","-c", "/etc/supervisor/conf.d/supervisord.conf"]
 
