@@ -13,8 +13,8 @@ RUN apk --no-cache add \
     # D-Bus library appears to be incorrectly set up; failed to read machine uuid: Failed to open "/etc/machine-id": No such file or directory
     dbus-uuidgen --ensure=/etc/machine-id
 
-COPY xvfb.sh ${SELENIUM_PATH}
+COPY xvfb-run /usr/bin
 ENV DISPLAY ':0.0'
 
-RUN chmod +x ${SELENIUM_PATH}/xvfb.sh
+RUN chmod +x /usr/bin/xvfb-run
 
