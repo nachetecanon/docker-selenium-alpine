@@ -14,7 +14,12 @@ RUN apk --no-cache add \
     dbus-uuidgen --ensure=/etc/machine-id
 
 COPY xvfb-run /usr/bin
-ENV DISPLAY ':0.0'
-
+ENV DEBIAN_FRONTEND noninteractive
+ENV DEBCONF_NONINTERACTIVE_SEEN true
+ENV SCREEN_WIDTH 1360
+ENV SCREEN_HEIGHT 1020
+ENV SCREEN_DEPTH 24
+ENV DISPLAY :99.0
+ENV GEOMETRY "$SCREEN_WIDTH""x""$SCREEN_HEIGHT""x""$SCREEN_DEPTH"
 RUN chmod +x /usr/bin/xvfb-run
 

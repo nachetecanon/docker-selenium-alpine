@@ -5,17 +5,11 @@ MAINTAINER Nacho Cañón <nachete.canon@gmail.com>
 # Install cURL, tar, etc
 RUN apk --update add bash curl supervisor sudo
 
-# set C.UTF-8 locale as default.
 
-ENV LANG=C.UTF-8 \
-    LC_MONETARY=C.UTF-8 \
-    LC_PAPER=C.UTF-8 \
-    LC_NAME=C.UTF-8 \
-    LC_ADDRESS=C.UTF-8 \
-    LC_TELEPHONE=C.UTF-8 \
-    LC_MEASUREMENT=C.UTF-8 \
-    LC_IDENTIFICATION=C.UTF-8
+ENV TZ "Europe/Paris"
 
+
+RUN echo $TZ > /etc/timezone
 #==============================
 # download openjdk
 #==============================
